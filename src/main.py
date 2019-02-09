@@ -1,6 +1,16 @@
 
 import xml_handlers
 import json_handlers
+import random
+
+def random_color():
+  levels = range(32,256,32)
+  return [random.choice(levels) for _ in range(3)]
+
+def random_hex_color():
+  c = random_color()
+  output = "#" + "".join(["%0.2X" % x for x in c])
+  return output
 
 json_obj = json_handlers.dump_json( "data/brain_atlas_labels.json" )
 
@@ -47,18 +57,14 @@ for path in out_paths:
       style_sub_fields[key] = value
 
     old_color = style_sub_fields["fill"]
-    print("struct name: %s, color %s" % (struct_name, old_color))
-    if struct_id == 12114:
-      color="#FF0000"
-      print("recoloring RED")
-    else:
-      print("recoloring BLACK")
+    color=random_hex_color()
+    print("struct name: %s, old color %s, new color (random) %s" % (struct_name, old_color, color))
   except KeyError:
     color="#000000"
     continue
 
   node.attrib["style"] = "stroke:#000000;fill:%s" % color
 
-doc.write("data/test_out_RB.svg")
+doc.write("data/test_out_random.svg")
 
 
