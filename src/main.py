@@ -17,7 +17,7 @@ json_obj = json_handlers.dump_json( "data/brain_atlas_labels.json" )
 json_obj = json_obj["msg"][0]
 
 #load the xml and its root node
-doc,svg = xml_handlers.svg2xml("data/test_brain.svg")
+doc,svg = xml_handlers.svg2xml("data/test_slice.svg")
 
 #this is a hack, should do edits using search instead of iteration?
 out_paths = xml_handlers.find_paths_tree(svg,limit=10)
